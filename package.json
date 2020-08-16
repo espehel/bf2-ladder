@@ -1,0 +1,76 @@
+{
+  "name": "bf2-ladder",
+  "version": "1.0.0",
+  "description": "",
+  "files": [
+    "build"
+  ],
+  "scripts": {
+    "start": "parcel src/app/index.html -d build/parcel_serve",
+    "local": "run-p local:*",
+    "local:app": "parcel watch src/app/index.html -d build/dist",
+    "local:server": "npm run build:server && node ./build/server/web-server.js",
+    "build": "run-p build:*",
+    "build:app": "parcel build src/app/index.html -d build/dist",
+    "build:server": "tsc --project src/server/tsconfig.json",
+    "prebuild": "rimraf build",
+    "deploy": "git push -f heroku HEAD:master",
+    "lint:fix": "eslint . . --ext .js,.ts,.tsx --fix",
+    "format": "prettier '**/*.{less,ts,tsx}' --ignore-path='.eslintignore'",
+    "format:write": "npm run lint:fix && npm run format -- --write",
+    "verify": "run-p verify:*",
+    "verify:audit": "npm audit --registry=https://registry.npmjs.org/ --audit-level=moderate",
+    "verify:types": "tsc --noEmit",
+    "verify:format": "prettier '**/*.{less,ts,tsx}' --ignore-path='.eslintignore' -l",
+    "verify:lint": "eslint . . --ext .js,.ts,.tsx"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@material-ui/core": "^4.11.0",
+    "be-pretty": "^0.9.4",
+    "constate": "^2.0.0",
+    "create-use-context": "^1.0.1",
+    "express": "^4.17.1",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "styled-components": "^5.1.1",
+    "uniqid": "^5.2.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.11.1",
+    "@babel/plugin-proposal-optional-chaining": "^7.11.0",
+    "@babel/preset-env": "^7.11.0",
+    "@babel/preset-typescript": "^7.10.4",
+    "@types/express": "^4.17.7",
+    "@types/node": "^14.0.27",
+    "@types/react": "^16.9.46",
+    "@types/react-dom": "^16.9.8",
+    "@types/styled-components": "^5.1.2",
+    "@types/uniqid": "^5.2.0",
+    "@typescript-eslint/eslint-plugin": "^3.9.0",
+    "@typescript-eslint/parser": "^3.9.0",
+    "eslint": "^7.7.0",
+    "eslint-config-airbnb": "^18.2.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-import": "^2.22.0",
+    "eslint-plugin-jsx-a11y": "^6.3.1",
+    "eslint-plugin-prettier": "^3.1.4",
+    "eslint-plugin-react": "^7.20.6",
+    "eslint-plugin-react-hooks": "^4.0.8",
+    "less": "^3.12.2",
+    "npm-run-all": "^4.1.5",
+    "parcel-bundler": "^1.12.4",
+    "prettier": "^2.0.5",
+    "prettier-eslint": "^11.0.0",
+    "rimraf": "^3.0.2",
+    "typescript": "^3.9.7"
+  },
+  "browserslist": [
+    "last 1 Chrome versions"
+  ],
+  "engines": {
+    "node": "13.6.x"
+  }
+}
