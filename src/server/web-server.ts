@@ -4,6 +4,7 @@ import express, { ErrorRequestHandler } from 'express';
 import bodyParser from 'body-parser';
 
 import discordApi from './api/discord';
+import sanityApi from './api/sanity';
 import { errorHandler } from './error-handler';
 
 const app = express();
@@ -19,6 +20,7 @@ app.use(express.static(path.normalize(path.join(__dirname, '../dist/'))));
 
 // Routes
 app.use('/api/discord', discordApi);
+app.use('/api/sanity', sanityApi);
 
 app.use(errorHandler);
 

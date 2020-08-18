@@ -29,6 +29,7 @@
   "license": "MIT",
   "dependencies": {
     "@material-ui/core": "^4.11.0",
+    "@sanity/client": "^1.149.18",
     "be-pretty": "^0.9.4",
     "constate": "^2.0.0",
     "create-use-context": "^1.0.1",
@@ -36,6 +37,7 @@
     "node-fetch": "^2.6.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-use": "^15.3.3",
     "styled-components": "^5.1.1",
     "uniqid": "^5.2.0"
   },
