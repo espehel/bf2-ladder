@@ -42,4 +42,20 @@ router.get(
   })
 );
 
+router.get(
+  '/resultsByTeams',
+  catchAsyncErrors(async (req, res) => {
+    const query = `
+    *[ _type == "team" ]{
+      name,
+      _id,
+      "results": *[ _type == "result" && references(^._id) ] {'team_a': team_a{'team': team._ref, points}, 'team_b': team_b{'team': team._ref, points}},
+    }`;
+
+    const results = await client.fetch(query);
+
+    res.send(results);
+  })
+);
+
 export default router;

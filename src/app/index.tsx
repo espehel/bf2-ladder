@@ -8,6 +8,10 @@ import App from './App';
 const rootElement = document.querySelector('#root');
 
 const theme = createMuiTheme({
+  palette: {
+    primary: { main: '#6d99bb' },
+    secondary: { main: '#a6413e' },
+  },
   overrides: {
     MuiTypography: {
       h1: {

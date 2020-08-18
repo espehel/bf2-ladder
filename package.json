@@ -29,6 +29,7 @@
   "license": "MIT",
   "dependencies": {
     "@material-ui/core": "^4.11.0",
+    "@material-ui/icons": "^4.9.1",
     "@sanity/client": "^1.149.18",
     "be-pretty": "^0.9.4",
     "constate": "^2.0.0",
