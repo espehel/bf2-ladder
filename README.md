@@ -11,14 +11,17 @@ npm install
 ```
 
 ### Heroku
+
 Download and install the [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli).
 
 Log into heroku
+
 ```sh
 heroku login
 ```
 
 Add heroku repository as a remote
+
 ```sh
 heroku git:remote -a draw-my-guess
 ```
@@ -54,3 +57,20 @@ You can quickly verify the code this way:
 ```sh
 npm run verify
 ```
+
+## Sanity
+
+Sanity is used to manage and store data.
+
+### Commands
+
+from `cms/`:
+
+- Start locally: `sanity start`
+- Deploy: `sanity deploy`
+
+### Usefull links
+
+- [Manage](https://manage.sanity.io/projects/3kxov1pq)
+- [Studio](https://bf2-ladder.sanity.studio/desk)
+- [docs](https://www.sanity.io/docs)
