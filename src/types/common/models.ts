@@ -13,19 +13,19 @@ export interface Score {
 
 export interface ScoreBasic {
   team: string;
-  points: number;
+  tickets: number;
 }
 
-export interface Result extends DocumentSimple {
-  team_a: Score;
-  team_b: Score;
+export interface MatchMap {
+  name: string;
+  score_a: ScoreBasic;
+  score_b: ScoreBasic;
 }
 
-export interface ResultBasic {
-  team_a: ScoreBasic;
-  team_b: ScoreBasic;
+export interface MatchBasic {
+  maps: MatchMap[];
 }
 
-export interface TeamWithResults extends Team {
-  results: ResultBasic[];
+export interface TeamWithMatches extends Team {
+  matches: MatchBasic[];
 }

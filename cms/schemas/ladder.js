@@ -16,9 +16,15 @@ export default {
       ],
     },
     {
-      title: 'Scoreboard',
-      name: 'scoreboard',
-      type: 'scoreboard',
+      title: 'Matches',
+      name: 'matches',
+      type: 'array',
+      of: [
+        {
+          type: 'reference',
+          to: [{ type: 'match' }],
+        },
+      ],
     },
   ],
 };

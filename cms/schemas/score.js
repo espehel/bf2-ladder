@@ -9,8 +9,13 @@ export default {
       to: [{ type: 'team' }],
     },
     {
-      title: 'Points',
-      name: 'points',
+      title: 'Round 1',
+      name: 'round_1',
+      type: 'number',
+    },
+    {
+      title: 'Round 2',
+      name: 'round_2',
       type: 'number',
     },
   ],

@@ -15,6 +15,7 @@ import {
   getDraws,
   getLosses,
   getPoints,
+  getTickets,
   getWins,
 } from './utils/scoreboard';
 
@@ -40,6 +41,7 @@ const Scoreboard = () => {
             <TableCell align="right">Win</TableCell>
             <TableCell align="right">Draw</TableCell>
             <TableCell align="right">Loss</TableCell>
+            <TableCell align="right">Tickets</TableCell>
             <TableCell align="right">Points</TableCell>
           </TableRow>
         </TableHead>
@@ -49,10 +51,11 @@ const Scoreboard = () => {
               <TableCell component="th" scope="row">
                 {team.name}
               </TableCell>
-              <TableCell align="right">{team.results.length}</TableCell>
+              <TableCell align="right">{team.matches.length}</TableCell>
               <TableCell align="right">{getWins(team)}</TableCell>
               <TableCell align="right">{getDraws(team)}</TableCell>
               <TableCell align="right">{getLosses(team)}</TableCell>
+              <TableCell align="right">{getTickets(team)}</TableCell>
               <TableCell align="right">{getPoints(team)}</TableCell>
             </TableRow>
           ))}

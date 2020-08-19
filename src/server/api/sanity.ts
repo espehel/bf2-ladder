@@ -32,24 +32,19 @@ router.get(
 );
 
 router.get(
-  '/results',
-  catchAsyncErrors(async (req, res) => {
-    const query = '*[_type == "result"]';
-
-    const results = await client.fetch(query);
-
-    res.send(results);
-  })
-);
-
-router.get(
-  '/resultsByTeams',
+  '/matchesByTeams',
   catchAsyncErrors(async (req, res) => {
     const query = `
     *[ _type == "team" ]{
-      name,
-      _id,
-      "results": *[ _type == "result" && references(^._id) ] {'team_a': team_a{'team': team._ref, points}, 'team_b': team_b{'team': team._ref, points}},
+      name, _id,
+      "matches": *[ _type == "match" && references(^._id) && status == "complete"] 
+      {
+        maps [] {
+          "name": map->name,
+          score_a{"team": team._ref, "tickets": round_1+round_2},
+          score_b{"team": team._ref, "tickets": round_1+round_2}, 
+        },
+      },
     }`;
 
     const results = await client.fetch(query);
