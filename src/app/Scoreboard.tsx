@@ -9,7 +9,7 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import { useAsync } from 'react-use';
 
-import { getResultsByTeams } from './api';
+import { getMatchesByTeams } from './api';
 import {
   compareTeams,
   getDraws,
@@ -28,7 +28,7 @@ const useStyles = makeStyles({
 const Scoreboard = () => {
   const classes = useStyles();
 
-  const { value = [] } = useAsync(getResultsByTeams, []);
+  const { value = [] } = useAsync(getMatchesByTeams, []);
   const sortedTeams = useMemo(() => value.sort(compareTeams), [value]);
 
   return (

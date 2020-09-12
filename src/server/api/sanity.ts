@@ -32,11 +32,28 @@ router.get(
 );
 
 router.get(
+  '/matches',
+  catchAsyncErrors(async (req, res) => {
+    const query = `
+      *[_type == "match"]
+      {...,
+       team_a->{name},
+      team_b->{name},
+      maps[]{..., map->{name, "image": map_image.asset->url}}
+    }`;
+
+    const matches = await client.fetch(query);
+
+    res.send(matches);
+  })
+);
+
+router.get(
   '/matchesByTeams',
   catchAsyncErrors(async (req, res) => {
     const query = `
     *[ _type == "team" ]{
-      name, _id,
+      ...,
       "matches": *[ _type == "match" && references(^._id) && status == "complete"] 
       {
         maps [] {

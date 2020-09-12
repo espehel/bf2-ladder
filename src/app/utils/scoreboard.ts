@@ -1,6 +1,6 @@
 import {
   MatchBasic,
-  MatchMap,
+  MatchMapBasic,
   TeamWithMatches,
 } from '../../types/common/models';
 
@@ -37,13 +37,13 @@ export const compareTeams = (teamA: TeamWithMatches, teamB: TeamWithMatches) =>
 const getDifferenceFromMatch = (team: string) => (match: MatchBasic): number =>
   match.maps.map(getDifferenceFromMap(team)).reduce(add, 0);
 
-const getDifferenceFromMap = (team: string) => (map: MatchMap): number => {
+const getDifferenceFromMap = (team: string) => (map: MatchMapBasic): number => {
   const opponent =
     map.score_a.team === team ? map.score_b.team : map.score_a.team;
   return getTicketsFromMap(team)(map) - getTicketsFromMap(opponent)(map);
 };
 
-const getTicketsFromMap = (team: string) => (map: MatchMap): number =>
+const getTicketsFromMap = (team: string) => (map: MatchMapBasic): number =>
   map.score_a.team === team ? map.score_a.tickets : map.score_b.tickets;
 
 const getPointsFromMatch = (team: string) => (match: MatchBasic): number => {
@@ -56,4 +56,4 @@ const getPointsFromMatch = (team: string) => (match: MatchBasic): number => {
 };
 
 export const add = (a: number, b: number): number => a + b;
-export const extractMaps = (match: MatchBasic): MatchMap[] => match.maps;
+export const extractMaps = (match: MatchBasic): MatchMapBasic[] => match.maps;

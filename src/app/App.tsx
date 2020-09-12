@@ -3,6 +3,7 @@ import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 
 import Header from './Header';
 import Scoreboard from './Scoreboard';
+import Schedule from './Schedule';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -19,6 +20,7 @@ const App: FC = () => {
       <Header />
       <main className={styles.main}>
         <Scoreboard />
+        <Schedule />
       </main>
     </>
   );
