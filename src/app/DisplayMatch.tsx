@@ -46,7 +46,7 @@ interface Props {
   match: Match;
 }
 
-const Match: FC<Props> = ({ match }) => {
+const DisplayMatch: FC<Props> = ({ match }) => {
   const classes = useStyles();
 
   if (match.status === MatchStatus.Open) {
@@ -101,4 +101,4 @@ const Match: FC<Props> = ({ match }) => {
   );
 };
 
-export default Match;
+export default DisplayMatch;

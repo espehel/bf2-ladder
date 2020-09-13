@@ -4,9 +4,12 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListSubheader from '@material-ui/core/ListSubheader';
 import { useAsync } from 'react-use';
+import { SanityDocument } from '@sanity/client';
+
+import { Match } from '../types/common/models';
 
 import { getMatches } from './api';
-import Match from './Match';
+import DisplayMatch from './DisplayMatch';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -29,46 +32,35 @@ const useStyles = makeStyles((theme: Theme) =>
 const Schedule = () => {
   const classes = useStyles();
 
-  const { value = [] } = useAsync(getMatches, []);
+  const { value: matches = [] } = useAsync(getMatches, []);
 
-  console.log(value);
+  const matchDates: [string, SanityDocument<Match>[]][] = matches
+    .map((match) => match.match_time.split('T')[0])
+    .filter((date, i, dates) => dates.indexOf(date) === i)
+    .sort()
+    .map((date) => [date, []]);
 
-  const upcoming = value;
-  const finished = value;
-  const pending = value;
+  const matchMap = new Map(matchDates);
+  matches.forEach((match) =>
+    matchMap.get(match.match_time.split('T')[0])?.push(match)
+  );
+
+  console.log(matchMap);
 
   return (
     <List className={classes.root} subheader={<li />}>
-      <li key={`upcoming`} className={classes.listSection}>
-        <ul className={classes.ul}>
-          <ListSubheader>Upcoming</ListSubheader>
-          {upcoming.map((match) => (
-            <ListItem key={match._id}>
-              <Match match={match} />
-            </ListItem>
-          ))}
-        </ul>
-      </li>
-      <li key={`pending`} className={classes.listSection}>
-        <ul className={classes.ul}>
-          <ListSubheader>Pending</ListSubheader>
-          {pending.map((match) => (
-            <ListItem key={match._id}>
-              <Match match={match} />
-            </ListItem>
-          ))}
-        </ul>
-      </li>
-      <li key={`finished`} className={classes.listSection}>
-        <ul className={classes.ul}>
-          <ListSubheader>Finished</ListSubheader>
-          {finished.map((match) => (
-            <ListItem key={match._id}>
-              <Match match={match} />
-            </ListItem>
-          ))}
-        </ul>
-      </li>
+      {[...matchMap.keys()].map((date) => (
+        <li key={date} className={classes.listSection}>
+          <ul className={classes.ul}>
+            <ListSubheader>{date}</ListSubheader>
+            {matchMap.get(date)?.map((match) => (
+              <ListItem key={match._id}>
+                <DisplayMatch match={match} />
+              </ListItem>
+            ))}
+          </ul>
+        </li>
+      ))}
     </List>
   );
 };
