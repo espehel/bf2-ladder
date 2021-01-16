@@ -1,6 +1,7 @@
 import React from 'react';
 import { render } from 'react-dom';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
+import { BrowserRouter as Router } from 'react-router-dom';
 
 import './less/main.less';
 import App from './App';
@@ -29,7 +30,9 @@ const theme = createMuiTheme({
 
 render(
   <ThemeProvider theme={theme}>
-    <App />
+    <Router>
+      <App />
+    </Router>
   </ThemeProvider>,
   rootElement
 );
