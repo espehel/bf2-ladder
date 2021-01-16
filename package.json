@@ -76,6 +76,6 @@
     "last 1 Chrome versions"
   ],
   "engines": {
-    "node": "13.6.x"
+    "node": "14.15.x"
   }
 }
