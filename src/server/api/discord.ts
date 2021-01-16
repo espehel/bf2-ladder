@@ -1,8 +1,6 @@
 import express from 'express';
 import fetch from 'node-fetch';
 
-import { catchAsyncErrors } from '../utils';
-
 const router = express.Router();
 
 const CLIENT_ID = process.env.CLIENT_ID;
@@ -25,34 +23,31 @@ router.get('/login', (req, res) => {
   );
 });
 
-router.get(
-  '/callback',
-  catchAsyncErrors(async (req, res) => {
-    const { code } = req.query;
+router.get('/callback', async (req, res) => {
+  const { code } = req.query;
 
-    if (!(code && typeof code === 'string')) {
-      throw new Error('NoCodeProvided');
-    }
+  if (!(code && typeof code === 'string')) {
+    throw new Error('NoCodeProvided');
+  }
 
-    const body = new URLSearchParams({
-      client_id: CLIENT_ID,
-      client_secret: CLIENT_SECRET,
-      grant_type: 'authorization_code',
-      code,
-      redirect_uri,
-      scope: 'identify',
-    });
+  const body = new URLSearchParams({
+    client_id: CLIENT_ID,
+    client_secret: CLIENT_SECRET,
+    grant_type: 'authorization_code',
+    code,
+    redirect_uri,
+    scope: 'identify',
+  });
 
-    const response = await fetch('https://discordapp.com/api/oauth2/token', {
-      method: 'POST',
-      body,
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-      },
-    });
-    const json = await response.json();
-    res.redirect(`/?token=${json.access_token}`);
-  })
-);
+  const response = await fetch('https://discordapp.com/api/oauth2/token', {
+    method: 'POST',
+    body,
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+    },
+  });
+  const json = await response.json();
+  res.redirect(`/?token=${json.access_token}`);
+});
 
 export default router;

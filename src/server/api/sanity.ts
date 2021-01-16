@@ -1,8 +1,6 @@
 import express from 'express';
 import sanityClient from '@sanity/client';
 
-import { catchAsyncErrors } from '../utils';
-
 const router = express.Router();
 
 const SANITY_SECRET = process.env.SANITY_SECRET;
@@ -20,21 +18,16 @@ const client = sanityClient({
   token: SANITY_SECRET,
 });
 
-router.get(
-  '/teams',
-  catchAsyncErrors(async (req, res) => {
-    const query = '*[_type == "team"]';
+router.get('/teams', async (req, res) => {
+  const query = '*[_type == "team"]';
 
-    const teams = await client.fetch(query);
+  const teams = await client.fetch(query);
 
-    res.send(teams);
-  })
-);
+  res.send(teams);
+});
 
-router.get(
-  '/matches',
-  catchAsyncErrors(async (req, res) => {
-    const query = `
+router.get('/matches', async (req, res) => {
+  const query = `
       *[_type == "match"]
       {...,
        team_a->{name},
@@ -42,16 +35,13 @@ router.get(
       maps[]{..., map->{name, "image": map_image.asset->url}}
     }`;
 
-    const matches = await client.fetch(query);
+  const matches = await client.fetch(query);
 
-    res.send(matches);
-  })
-);
+  res.send(matches);
+});
 
-router.get(
-  '/matchesByTeams',
-  catchAsyncErrors(async (req, res) => {
-    const query = `
+router.get('/matchesByTeams', async (req, res) => {
+  const query = `
     *[ _type == "team" ]{
       ...,
       "matches": *[ _type == "match" && references(^._id) && status == "complete"] 
@@ -64,10 +54,9 @@ router.get(
       },
     }`;
 
-    const results = await client.fetch(query);
+  const results = await client.fetch(query);
 
-    res.send(results);
-  })
-);
+  res.send(results);
+});
 
 export default router;
