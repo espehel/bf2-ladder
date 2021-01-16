@@ -13,9 +13,10 @@ import TableBody from '@material-ui/core/TableBody';
 import { Avatar } from '@material-ui/core';
 import Card from '@material-ui/core/Card';
 
-import { Match, MatchStatus } from '../types/common/models';
+import { Match, MatchStatus } from '../../types/common/models';
+import { getStartTime, getTotalTickets } from '../utils/schedule';
 
-import { getStartTime, getTotalTickets } from './utils/schedule';
+import MatchHeader from './MatchHeader';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -52,23 +53,25 @@ const DisplayMatch: FC<Props> = ({ match }) => {
   if (match.status === MatchStatus.Open) {
     return (
       <Card className={classes.card}>
-        <Typography className={classes.heading}>
-          {`${match.team_a.name} ${getStartTime(match.match_time)} ${
-            match.team_b.name
-          }`}
-        </Typography>
+        <MatchHeader
+          teamA={match.team_a}
+          teamB={match.team_b}
+          seperator={getStartTime(match.match_time)}
+        />
       </Card>
     );
   }
   return (
     <Accordion className={classes.accordion}>
       <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-        <Typography className={classes.heading}>
-          {`${match.team_a.name} ${getTotalTickets(
-            'a',
+        <MatchHeader
+          teamA={match.team_a}
+          teamB={match.team_b}
+          seperator={`${getTotalTickets('a', match.maps)} - ${getTotalTickets(
+            'b',
             match.maps
-          )} - ${getTotalTickets('b', match.maps)} ${match.team_b.name}`}
-        </Typography>
+          )}`}
+        />
       </AccordionSummary>
       <AccordionDetails>
         <Table>

@@ -6,9 +6,9 @@ import ListSubheader from '@material-ui/core/ListSubheader';
 import { useAsync } from 'react-use';
 import { SanityDocument } from '@sanity/client';
 
-import { Match } from '../types/common/models';
+import { Match } from '../../types/common/models';
+import { getMatches } from '../api';
 
-import { getMatches } from './api';
 import DisplayMatch from './DisplayMatch';
 
 const useStyles = makeStyles((theme: Theme) =>

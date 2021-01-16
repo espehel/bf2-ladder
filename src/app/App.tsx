@@ -3,7 +3,7 @@ import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 
 import Header from './Header';
 import Scoreboard from './Scoreboard';
-import Schedule from './Schedule';
+import Schedule from './schedule/Schedule';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
