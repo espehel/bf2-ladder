@@ -6,6 +6,7 @@ import Header from './Header';
 import Scoreboard from './Scoreboard';
 import Schedule from './schedule/Schedule';
 import Match from './match/Match';
+import CreateMatch from './match/CreateMatch';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -24,6 +25,9 @@ const App: FC = () => {
         <Switch>
           <Route path="/match/:id">
             <Match />
+          </Route>
+          <Route path="/match/">
+            <CreateMatch />
           </Route>
           <Route path="/">
             <Scoreboard />
